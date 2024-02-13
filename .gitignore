@@ -10,5 +10,5 @@
 # CTestTestfile.cmake
 # _deps
 
-build_*/
+build*/
 lib/
