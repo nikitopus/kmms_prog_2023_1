@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Алгоритмы и структуры данных</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f1e90000-5fa0-4b5e-8f64-8e66d9ddf108" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_16.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧩</span></div><h1 class="page-title">Алгоритмы и структуры данных</h1><p class="page-description"></p></header><div class="page-body"><p id="23daec7c-0eab-48c9-b449-57cc7bf4fa2a" class="">Билеты старшего курса: </p><p id="845a0d51-e106-41f6-ba50-f730b8f3700b" class="">
+</p><figure id="2aa23e13-4294-45ec-96c8-d6a548958804" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/1%20%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D1%81%D0%B2%D0%BE%D0%B8%CC%86%D1%81%D1%82%D0%B2%D0%B0%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0,%20%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D1%8B%20%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D1%8F%20%202aa23e13429445ec96c8d6a548958804.html"><span class="icon">💳</span>1. Алгоритм, свойства алгоритма, способы описания алгоритма, алгоритмические структуры (типы алгоритмов), шаблон описания алгоритма, этапы решения задач на ПК.</a></figure><figure id="3166ec0b-b0f5-49a7-8b59-a7b47d638403" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/2%20%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0,%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D0%B8%D1%8F%20(%D1%86%D0%B5%D0%BB%D0%BE%D1%81%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C,%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%203166ec0bb0f549a78b59a7b47d638403.html"><span class="icon">🎙️</span>2. Система, основные понятия (целостность, структура, элемент, подсистема, цели), классификация систем.</a></figure><figure id="e4a1bffe-90f4-4ae5-b177-fe7480fcc3e5" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/3%20%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C,%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5,%20%D0%B2%D0%B8%D0%B4%D1%8B%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F,%20%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%20e4a1bffe90f44ae5b177fe7480fcc3e5.html"><span class="icon">🏜️</span>3. Модель, моделирование, виды моделирования, математическое моделирование, методология.</a></figure><figure id="cee3bac3-94a8-4bc7-a284-1fa726cbf357" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/4%20%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%20%D0%B0%D0%B1%D1%81%D1%82%D1%80%D0%B0%D0%B3%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F,%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5,%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%20cee3bac394a84bc7a2841fa726cbf357.html"><span class="icon">🎽</span>4. Уровень абстрагирования, данные, структура данных/тип данных, представление структуры данных (логическое, физическое), элемент данных, отношениями между данными, элемент отношений.</a></figure><figure id="187f1339-dd8a-42bd-aae9-1ff572362972" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/5%20%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85,%20%D0%B0%D0%B1%D1%81%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BD%D1%8B%D0%B8%CC%86%20%D1%82%D0%B8%D0%BF%20%D0%B4%D0%B0%20187f1339dd8a42bdaae91ff572362972.html"><span class="icon">⌚</span>5. Уровни представления данных, абстрактный тип данных, классификация структур данных, базовые структуры данных, операции над структурами данных.</a></figure><figure id="55e237f8-1e85-4562-856a-121a47215d35" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/6%20%D0%9C%D0%B0%D1%81%D1%81%D0%B8%D0%B2,%20%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BC%D0%B5%D1%80%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D1%8B,%20%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D1%8B,%20%2055e237f81e854562856a121a47215d35.html"><span class="icon">🦺</span>6. Массив, многомерные массивы, свободные массивы, описание, характеристики, их использование.</a></figure><figure id="198e6add-4a6d-4929-bdb6-a8dbd350bb4d" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/7%20%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D0%B8,%20%D0%B8%D1%85%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5,%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BD%D0%B0%D0%B4%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8F%D0%BC%D0%B8%20198e6add4a6d4929bdb6a8dbd350bb4d.html"><span class="icon">♥️</span>7. Записи, их хранение, операции над записями.</a></figure><figure id="06b6cfc9-61b7-48de-be25-5e95dd65869b" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/8%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B0,%20%D0%B8%D1%85%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5,%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8,%20%D0%B8%D1%85%20%D1%87%D0%B0%2006b6cfc961b748debe255e95dd65869b.html"><span class="icon">🌈</span>8. Множества, их хранение, основные операции, их частные случаи.</a></figure><figure id="d6109ba8-e39c-44ab-b2cc-989236d3cf38" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/9%20%D0%9B%D0%B8%D0%BD%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B5%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20d6109ba8e39c44abb2cc989236d3cf38.html"><span class="icon">🛁</span>9. Линейные структуры данных.</a></figure><figure id="7e324219-1d6b-466f-a9e9-ae28c367e9ac" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/10%20%D0%A1%D0%BF%D0%B8%D1%81%D0%BA%D0%B8,%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8,%20%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8%20(%D0%BB%D0%B8%D0%BD%D0%B5%207e3242191d6b466fa9e9ae28c367e9ac.html"><span class="icon">🎼</span>10. Списки, основные операции, характеристики (линейный однонаправленный, циклический однонаправленный, циклический двунаправленный).</a></figure><figure id="a71bb132-59bf-4f7e-a676-4c64ddfee598" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/11%20%D0%A1%D1%82%D0%B5%D0%BA%20%D0%9F%D1%80%D0%B8%D0%BD%D1%86%D0%B8%D0%BF%20LIFO,%20%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C%20FIFO,%20%D0%B4%D0%B5%D0%BA%20a71bb13259bf4f7ea6764c64ddfee598.html"><span class="icon">🥌</span>11. Стек. Принцип LIFO, очередь. FIFO, дек.</a></figure><figure id="c28f49bc-5940-44fc-8ad5-af4bea628218" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/12%20%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5,%20%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5,%20%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85,%20%D0%BF%20c28f49bc594044fc8ad5af4bea628218.html"><span class="icon">🎴</span>12. Большие данные, определение, качество данных, показатели качества данных (точности, согласованности, полноты, очистка данных). Базовые стандарты, термины.</a></figure><figure id="1d20614b-b74b-4bb1-9d96-fa852574ea8b" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/13%20%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B8%20%D0%B8%20%D0%B4%D0%B5%D1%84%D0%B5%D0%BA%D1%82%D1%8B%20%D0%B2%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D1%85%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%20%D0%B8%20%D0%B8%D1%85%20%D1%85%D0%B0%D1%80%201d20614bb74b4bb19d96fa852574ea8b.html"><span class="icon">🚉</span>13. Ошибки и дефекты в комплексах программ и их характеристики</a></figure><figure id="95f0b0a4-242a-4f93-a031-b3944cd6615d" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/14%20%D0%93%D0%B5%D0%BD%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B8%CC%86%20%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7,%20%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F,%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BE%D0%BF%2095f0b0a4242a4f93a031b3944cd6615d.html"><span class="icon">🛢️</span>14. Генетический анализ, терминология, основные операции, общая схема, свойства алгоритма, преимущества, недостатки</a></figure><figure id="641cab8a-c41c-48bc-bfcf-68c1aa98293e" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/15%20%D0%93%D0%B5%D0%BD%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B8%CC%86%20%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7,%20%D1%8D%D1%82%D0%B0%D0%BF%D1%8B%20%D0%B8%20%D0%B8%D1%85%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8,%20%D0%B4%20641cab8ac41c48bcbfcf68c1aa98293e.html"><span class="icon">🥎</span>15. Генетический анализ, этапы и их особенности, двоичное и вещественное кодирование.</a></figure><figure id="5197e313-b471-48e3-bee3-f17a80a00c4a" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/16%20%D0%93%D0%B5%D0%BD%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B8%CC%86%20%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7,%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%BE%D0%B8%CC%86%20%D0%BF%D0%BE%D0%BF%D1%83%D0%BB%205197e313b47148e3bee3f17a80a00c4a.html"><span class="icon">🌏</span>16. Генетический анализ, генерация исходной популяции, виды селекции.</a></figure><figure id="c69b4ca5-4b4b-4863-b63c-b51d345b67f0" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/17%20%D0%9C%D0%BE%D0%B4%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20%D0%93%D0%90,%20%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%B5%D0%B3%D0%B8%D0%B8%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B0%20%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D0%B5%D0%B8%CC%86,%20%D0%B2%D1%8B%20c69b4ca54b4b4863b63cb51d345b67f0.html"><span class="icon">🪵</span>17. Модификации ГА, стратегии отбора родителей, выбор особи в новую популяцию, вида кроссинговера.</a></figure><figure id="7837172a-f8ab-4106-8fce-d81c638b9f88" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/18%20%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2%207837172af8ab41068fced81c638b9f88.html"><span class="icon">🌚</span>18. Модели генетических алгоритмов.</a></figure><figure id="1d30d8b0-0e63-4aa0-b952-053c2c9a8510" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/19%20%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2,%20%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%201d30d8b00e634aa0b952053c2c9a8510.html"><span class="icon">🥼</span>19. Применение генетических алгоритмов, сравнительный анализ генетического, муравьиного и роевого алгоритмов, преимущества и недостатки.</a></figure><figure id="cb3cdbf7-e788-4047-afea-90865e50227e" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/20%20%D0%A0%D0%BE%D0%B5%D0%B2%D0%BE%D0%B8%CC%86%20%D0%B8%D0%BD%D1%82%D0%B5%D0%BB%D0%BB%D0%B5%D0%BA%D1%82,%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D1%80%D0%BE%D0%B5%D0%B2%D0%BE%D0%B3%D0%BE%20%D0%B8%D0%BD%D1%82%D0%B5%D0%BB%D0%BB%D0%B5%D0%BA%D1%82%D0%B0,%20%D0%BC%20cb3cdbf7e7884047afea90865e50227e.html"><span class="icon">🚋</span>20. Роевой интеллект, методы роевого интеллекта, метод роя частиц, алгоритм работы</a></figure><figure id="47ce09c7-90c8-4505-9e0d-6472499ec20d" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/21%20%D0%9C%D1%83%D1%80%D0%B0%D0%B2%D1%8C%D0%B8%D0%BD%D1%8B%D0%B8%CC%86%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D0%BF%D1%86%D0%B8%D1%8F%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0,%20%D1%88%D0%B0%D0%B3%D0%B8%2047ce09c790c845059e0d6472499ec20d.html"><span class="icon">🏕️</span>21. Муравьиный алгоритм, концепция алгоритма, шаги алгоритма, псевдокод.</a></figure><figure id="b7c695da-6cf7-4bde-97ac-538a238c8e1d" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/22%20%D0%9C%D1%83%D1%80%D0%B0%D0%B2%D1%8C%D0%B8%D0%BD%D1%8B%D0%B8%CC%86%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D0%BA%D1%80%D0%B8%D1%82%D0%B5%D1%80%D0%B8%D0%B8%20%D0%BE%D0%BA%D0%BE%D0%BD%D1%87%D0%B0%D0%BD%D0%B8%D1%8F,%20%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%20b7c695da6cf74bde97ac538a238c8e1d.html"><span class="icon">🥇</span>22. Муравьиный алгоритм, критерии окончания, выбора вершин, способы оценки качества решений, реализация испарения феромона.</a></figure><figure id="d5d5108a-edef-41dd-95b3-58e45c27eeb2" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/23%20%D0%9C%D0%B5%D0%BC%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B8%CC%86%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0,%20%D0%BF%D0%B0%D1%80%20d5d5108aedef41dd95b358e45c27eeb2.html"><span class="icon">📆</span>23. Меметический алгоритм, описание алгоритма, параметры, применение</a></figure><figure id="cf6d2d83-5295-4c83-8bfd-819a4c83d1f5" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/24%20%D0%9C%D1%83%D1%80%D0%B0%D0%B2%D1%8C%D0%B8%D0%BD%D0%B0%D1%8F%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0,%20%D0%BF%D1%81%D0%B5%D0%B2%D0%B4%D0%BE%D0%BA%D0%BE%D0%B4,%20%D0%BC%D0%BE%D0%B4%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BC%D1%83%D1%80%D0%B0%20cf6d2d8352954c838bfd819a4c83d1f5.html"><span class="icon">🌥️</span>24. Муравьиная система, псевдокод, модификации муравьиной системы, характеристики.</a></figure><figure id="2305b2cb-8c73-4cfb-bc65-daac675082c1" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/25%20%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B8%D0%BC%D0%B8%D1%82%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BE%D1%82%D0%B6%D0%B8%D0%B3%D0%B0,%20%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%202305b2cb8c734cfbbc65daac675082c1.html"><span class="icon">🩰</span>25. Алгоритм имитации отжига, математическое описание и псевдокод, характеристики</a></figure><figure id="89bf350d-e4dd-4bc2-bc67-2df82dd45286" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/26%20%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B8%CC%86%20%D0%BF%D1%87%D0%B5%D0%BB%D0%B8%D0%BD%D0%BE%D0%B8%CC%86%20%D0%BA%D0%BE%D0%BB%D0%BE%D0%BD%D0%B8%D0%B8,%20%D1%8D%D1%82%D0%B0%D0%BF%2089bf350de4dd4bc2bc672df82dd45286.html"><span class="icon">🎫</span>26. Алгоритм искусственной пчелиной колонии, этапы алгоритма</a></figure><figure id="667c1e7b-f539-4bbe-8808-dcc60193b19a" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/27%20%D0%A0%D0%BE%D0%B5%D0%B2%D0%BE%D0%B8%CC%86%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%BF%D1%81%D0%B5%D0%B2%D0%B4%D0%BE%D0%BA%20667c1e7bf5394bbe8808dcc60193b19a.html"><span class="icon">🛤️</span>27. Роевой алгоритм, формальное описание и псевдокод, влияние составляющих на скорость частицы, локальный роевой алгоритм, характеристики в зависимости от используемой сети</a></figure><figure id="03657da7-0b02-458b-a27e-76608fecaf0e" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/28%20%D0%A0%D0%BE%D0%B5%D0%B2%D0%BE%D0%B8%CC%86%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC,%20%D0%BA%D0%BE%D1%80%D1%80%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20%D1%81%D0%BA%D0%BE%D1%80%D0%BE%D1%81%D1%82%D0%B8%20%D1%87%D0%B0%D1%81%D1%82%D0%B8%D1%86%D1%8B,%20%D0%B2%2003657da70b02458ba27e76608fecaf0e.html"><span class="icon">🥅</span>28. Роевой алгоритм, коррекция скорости частицы, выбор соседей, особенности выбора параметров, критерии остановки</a></figure><figure id="1aa7475c-08fe-403d-b8a7-dbb0f67654e6" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/29%20%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%BE%D0%B4%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20%D1%80%D0%BE%D0%B5%D0%B2%D0%BE%D0%B3%D0%BE%20%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0%201aa7475c08fe403db8a7dbb0f67654e6.html"><span class="icon">🚅</span>29. Основные модификации роевого алгоритма</a></figure><figure id="3f10b935-b5a2-45dc-88d0-a7341bbd663f" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/30%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85,%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%203f10b935b5a245dc88d0a7341bbd663f.html"><span class="icon">🎊</span>30. Обработка персональных данных, обезличивание и анонимизация. Определение и общий пример полного цикла базового подхода к обработки персональных данных.</a></figure><figure id="b0ae1643-4c33-40bf-9913-6633d4bb39a1" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/31%20%D0%98%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B%20%D0%BF%D1%80%D1%8F%D0%BC%D1%8B%D1%85%20%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2,%20%20b0ae16434c3340bf99136633d4bb39a1.html"><span class="icon">🤿</span>31. Идентификаторы. Примеры прямых идентификаторов, квази-идентификаторов. Что такое чувствительные данные?</a></figure><figure id="6c9d10f9-f541-43a5-81f7-a34a448f3b5d" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/32%20%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BD%D1%86%D0%B8%D0%BF%D1%8B%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%A1%D0%B2%D0%BE%D0%B8%CC%86%D1%81%D1%82%D0%B2%206c9d10f9f54143a581f7a34a448f3b5d.html"><span class="icon">🎟️</span>32. Основные принципы обезличивания данных. Свойства персональных данных и методов обезличивания.</a></figure><figure id="dcfec277-293c-427e-bfe0-0f0e86d8b1fd" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/33%20%D0%A0%D0%B8%D1%81%D0%BA%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20(%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD%D0%B0)%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8%20%D0%9E%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%20%D1%80%D0%B8%D1%81%D0%BA%D0%B0%20dcfec277293c427ebfe00f0e86d8b1fd.html"><span class="icon">🎿</span>33. Риск публикации (обмена) данными. Оценка риска.</a></figure><figure id="9ca47af2-f36e-401b-a72c-f0f1ddab9e9e" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/34%20%D0%A7%D1%82%D0%BE%20%D0%B2%D1%85%D0%BE%D0%B4%D0%B8%D1%82%20%D0%B2%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%20%D1%83%D1%89%D0%B5%D1%80%D0%B1%20%D0%9E%D0%B1%D1%89%D0%B0%D1%8F%20%D1%84%D0%BE%D1%80%D0%BC%D1%83%D0%BB%D0%B0%20%D1%84%D0%B0%D0%BA%D1%82%D0%BE%D1%80%209ca47af2f36e401ba72cf0f1ddab9e9e.html"><span class="icon">🤡</span>34. Что входит в понятие ущерб? Общая формула факторизации вероятности риска повторной идентификации.</a></figure><figure id="13d52060-d130-407e-af63-d431eaa25d90" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/35%20%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%BE%D0%B2%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%A2%D0%B0%D0%BA%D1%81%2013d52060d130407eaf63d431eaa25d90.html"><span class="icon">🌪️</span>35. Классификация методов обезличивания данных. Таксономия обезличенных данных.</a></figure><figure id="a85c34cc-dc11-4a3c-93ea-ecf4380e6892" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/36%20%D0%9F%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9A%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B8%CC%86%20%D0%B8%20%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%20a85c34ccdc114a3c93eaecf4380e6892.html"><span class="icon">⛳</span>36. Процесс обезличивания. Количественный и качественный подход к обезличиванию. Полезность, риск и анонимность после обезличивания персональных данных.</a></figure><figure id="b427d68c-2b9a-41f4-8187-a79909790d67" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/37%20%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%B4%D0%B5%D0%BE%D0%B1%D0%B5%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%20b427d68c2b9a41f48187a79909790d67.html"><span class="icon">🪁</span>37. Примеры обезличивания и деобезличивания персональных данных. Техники обезличивания.</a></figure><figure id="ef23e7f9-d0ee-401b-865e-b34a89887c5a" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/38%20%D0%A1%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D0%B8%D0%B8%20%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%B8%20%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%BB%D0%BE%D1%83%D0%BC%20ef23e7f9d0ee401b865eb34a89887c5a.html"><span class="icon">🛺</span>38. Сценарии распространения данных и профили злоумышленников.</a></figure><figure id="3083c923-68cd-438a-9538-d0af1f3a1ed9" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/39%20%D0%9C%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%20%D0%B0%D0%BD%D0%BE%D0%BD%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%8B%20%D1%8D%D0%BA%D0%B2%D0%B8%D0%B2%D0%B0%D0%BB%D0%B5%D0%BD%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%9C%203083c92368cd438a9538d0af1f3a1ed9.html"><span class="icon">📺</span>39. Метрики анонимизации и классы эквивалентности. Метод K-anonymity. Основные атаки на K-anonymity. Алгоритм K-anonymity.</a></figure><figure id="0f197ff7-9492-4f5a-a010-ef22b0eee664" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/40%20%D0%92%D0%B8%D0%B4%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%E2%80%93%20%D0%9E%D0%B1%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%90%200f197ff794924f5aa010ef22b0eee664.html"><span class="icon">🧭</span>40. Вид техники – Обобщение. Локальное обобщение и Агрегация.</a></figure><figure id="a08d41a4-2b88-4332-9f1e-3a8ddbb21980" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/41%20%D0%92%D0%B8%D0%B4%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%E2%80%93%20%D0%A0%D0%B0%D0%BD%D0%B4%D0%BE%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%92%D0%BE%D0%B7%D0%BC%D1%83%D1%89%D0%B5%D0%BD%D0%B8%D0%B5,%20%D0%9C%D0%B8%D0%BA%D1%80%D0%BE-%D0%B0%D0%B3%20a08d41a42b8843329f1e3a8ddbb21980.html"><span class="icon">🩱</span>41. Вид техники – Рандомизация. Возмущение, Микро-агрегация и Перемешивание.</a></figure><figure id="46be19e6-1ea5-4d62-b178-0e572147e1a2" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/42%20%D0%92%D0%B8%D0%B4%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%E2%80%93%20%D0%BF%D1%81%D0%B5%D0%B2%D0%B4%D0%BE%D0%BD%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%81%D0%B5%D0%B2%D0%B4%D0%BE%D0%BD%D0%B8%2046be19e61ea54d62b1780e572147e1a2.html"><span class="icon">🎐</span>42. Вид техники – псевдонимизация. Создание псевдонимов, маскеризация</a></figure><figure id="073a4009-7490-4f42-8d7a-c3defce30c3f" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/43%20%D0%92%D0%B8%D0%B4%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%E2%80%93%20%D0%A8%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%94%D0%B5%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D1%88%D0%B8%D1%84%D1%80%20073a400974904f428d7ac3defce30c3f.html"><span class="icon">🎠</span>43. Вид техники – Шифрование. Детерминированное шифрование.</a></figure><figure id="0ca105bb-c6db-4d62-b46c-f1652f873c3a" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/44%20%D0%92%D0%B8%D0%B4%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%E2%80%93%20%D0%9F%D0%BE%D0%B4%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%A3%200ca105bbc6db4d62b46cf1652f873c3a.html"><span class="icon">🚋</span>44. Вид техники – Подавление. Локальное подавление. Удаление атрибутов.</a></figure><figure id="259a71a4-9fcd-4c0d-8b58-0776667d8285" class="link-to-page"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/45%20%D0%94%D1%80%D1%83%D0%B3%D0%B8%D0%B5%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%A1%D0%B5%D0%BC%D0%BF%D0%BB%D0%B8%D0%BD%D0%B3,%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5,%20%D0%BC%20259a71a49fcd4c0d8b580776667d8285.html"><span class="icon">🎆</span>45. Другие методы. Семплинг, Синтетические данные, метод декомпозиции.</a></figure><p id="080cfaf2-79bd-4098-8cb2-47e92ca30806" class="">
+</p><p id="58e4ae15-a98e-4730-81bc-016ffab47ddf" class="">Другие материалы:</p><ul id="72a317dd-87dc-40ad-a4a1-ede16e86dbb6" class="toggle"><li><details open=""><summary>Билеты</summary><p id="e0bb04f6-c3fa-4055-b18c-d985f693eea2" class=""> (Тимофей Махель)</p><p id="9865b9cc-cf1d-4f00-9283-c2dcd3f40732" class=""> (Виктор Колосков)</p><p id="3a194a9b-5427-412c-887a-08519926e1ee" class=""> (Кририлл Глухов)</p></details></li></ul><ul id="0cf1567c-5e24-4eaf-8b4b-8e96aedc891f" class="toggle"><li><details open=""><summary>Материалы из интернета</summary><p id="0e8680b4-db9f-4de9-8f17-4b68c882ae49" class="">Эвристические алгоритмы: <a href="https://fkti5301.github.io/exam_tickets_ai_2018_novakova">https://fkti5301.github.io/exam_tickets_ai_2018_novakova</a></p><hr id="8e8e9b5f-7611-47e8-b312-9767a4fcce20"/><p id="423bd5f1-d2e3-467d-abdd-951c2577cd52" class="">Алгоритм имитации пчелиной колонии: <a href="https://youtu.be/vmQ49mRhGGw?si=E_YZ2lwKU6bWO_e1">https://youtu.be/vmQ49mRhGGw?si=E_YZ2lwKU6bWO_e1</a></p><hr id="a76d310b-942a-4371-a85e-1ba3a6220042"/><p id="327f895b-c197-4bb1-b231-041c52fcaa96" class="">Качество данных: <a href="https://habr.com/ru/companies/rubda/articles/688116/">https://habr.com/ru/companies/rubda/articles/688116/</a></p><hr id="01fa9ad0-bb0b-4eb2-b2de-e88d4966ba7e"/><p id="574dde18-9c3d-4c10-9c55-2e423bd501c0" class="">Ущерб, риски (глава 2):</p><figure id="4095c2fd-494d-4f69-8483-dc48c1e1fe4a"><div class="source"><a href="%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B%20%D0%B8%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20f1e900005fa04b5e8f648e66d9ddf108/disser_(1).pdf">disser (1).pdf</a></div></figure><hr id="c6ce3ac3-3d8c-43e7-8782-083552b9cef7"/><p id="7cb26343-5535-43fa-8cb1-ceb917f0364e" class="">Презентации: <a href="https://intuit.ru/studies/courses/14227/1284/lecture/24168">https://intuit.ru/studies/courses/14227/1284/lecture/24168</a></p><p id="0e2f5bfb-679a-4ec1-b7f9-04a7dab2e6ce" class="">
+</p></details></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
